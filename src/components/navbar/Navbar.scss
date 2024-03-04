@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Chicle&family=Inter&family=Karla&family=Lora&family=PT+Mono&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Poppins&family=Roboto&family=Roboto+Condensed:wght@300&family=Rufina:wght@400;700&family=Secular+One&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+.navbar-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 1000;
+}
+
+.navbar {
+    width: 375px;
+    height: 667px;
+    background-color: #2F2927;
+    color: white;
+    padding: 20px;
+    font-family: "PT Serif";
+    font-weight: bold;
+    font-size: 32px;
+
+    a {
+        text-decoration: none;
+        color: white;
+    }
+
+
+    ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 6rem;
+    }
+
+    .border {
+        width: 48px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    ul li {
+        padding: 20px 0;
+    }
+
+}
+
+.close-button {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background-color: #FFFFFF;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+            cursor: pointer;
+        }
+}

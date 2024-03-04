@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Chicle&family=Inter&family=Karla&family=Lora&family=PT+Mono&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Poppins&family=Roboto&family=Roboto+Condensed:wght@300&family=Rufina:wght@400;700&family=Secular+One&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+.product {
+    width: 311px;
+    // height: 64px;
+    display: flex;
+    justify-content: space-between;
+
+    h2, p {
+        margin: 0;
+        padding: 0;
+    }
+    
+
+    h2 {
+        font-family: "PT Serif";
+        font-size: 23px;
+        font-weight: bold;
+        margin-top: 0;
+    }
+
+    p {
+        font-family: "Work Sans", sans-serif;
+        font-size: 12px;
+    }
+
+    &__name {
+        width: 194.44px;
+    }
+
+}
+
+.product__add-to-cart-button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #2F2926;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 7px;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+}

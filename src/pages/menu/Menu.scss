@@ -1,0 +1,19 @@
+.menu-wrapper {
+    width: 375px;
+
+    font-family: "PT Serif", sans-serif;
+    position: relative;
+    background-color: #F3E4E1;
+
+    h1 {
+        text-align: center;
+    }
+}
+
+.products-wrapper {
+    padding: 0 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-bottom: 3rem;
+}

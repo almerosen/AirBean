@@ -1,0 +1,53 @@
+.about-wrapper {
+    width: 375px;
+    background-color: #F3E4E1;
+
+    main {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        
+        h1 {
+            font-family: "PT Serif", sans-serif;
+            font-size: 42px;
+        }
+
+        p {
+            font-family: "Work Sans";
+            line-height: 25.6px;
+            margin: 1rem 0;
+        }
+
+        .text-content {
+            width: 311px;
+            margin: 0 auto;
+        }
+
+        .first-paragraph {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .paragraph {
+            font-size: 12px;
+        }
+    }  
+
+    .owner-container {
+        margin: 1.5rem 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #2F2926;
+
+        h2 {
+            margin-top: .3rem;
+        }
+
+        p {
+            font-size: .8rem;
+        }
+    }
+    
+}
