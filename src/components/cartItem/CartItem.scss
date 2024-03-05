@@ -1,0 +1,24 @@
+.cartItem {
+    font-family: "PT Serif", sans-serif;
+    color: #2F2926;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+    &__quantity {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    button {
+        border: none;
+        background-color: white;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+} 

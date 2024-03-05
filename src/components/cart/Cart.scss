@@ -1,0 +1,66 @@
+.cart {
+    font-family: "PT Serif", sans-serif;
+    color: #2F2926;
+    width: 375px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .7);
+    position: absolute;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 20px;
+
+    // .cart-icon {
+    //     position: absolute;
+    //     top: 20px;
+    //     right: 20px;
+    //     background-color: black;
+    //     width: 30px;
+    //     height: 30px;
+    //     display: flex;
+    //     justify-content: center;
+    //     align-items: center;
+    // }
+
+    h1 {
+        font-size: 32px;
+    }
+
+
+    &__order {
+        z-index: 2000;
+        width: 341px;
+        height: 91%;
+        border-radius: 5px;
+        background-color: white;
+        color: black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 3rem 1rem;
+        position: relative;
+
+        .polygon {
+            position: absolute;
+            top: -20px;
+            right: 18px;
+            z-index: 11000;
+        }
+    }
+
+    &__products {
+        width: 100%;
+        margin: 3rem 0 5rem 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+
+    &__order-sum {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+}

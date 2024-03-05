@@ -24,6 +24,7 @@
     }
 
     .cart-icon {
+        z-index: 1000;
         width: 60px;
         height: 60px;
         background-color: black;
@@ -35,6 +36,11 @@
 
         &:hover {
             cursor: pointer;
+        }
+
+        .orderArrow {
+            position: absolute;
+            bottom: -11px;
         }
 
         .quantity-logo {

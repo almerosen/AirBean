@@ -4,17 +4,29 @@ import rectangle from "../../images/header-images/rectangle.svg"
 import bag from "../../images/header-images/bag.svg"
 import { useState } from "react"
 import Navbar from "../navbar/Navbar"
+import Cart from "../cart/Cart"
+import orderArrow from "../../images/cart-images/caret-up-fill.svg"
+import useCartStore from "../../store/cartStore"
 
 const Header = () => {
+    const { getQuantity } = useCartStore()
     const [dropDown, setDropDown] = useState(false)
+    const [cartDropDown, setCartDropDown] = useState(false)
 
     const toggleDropdown = () => {
         setDropDown(prevState => !prevState)
     }
 
+    const toggleCartDropDown = () => {
+        setCartDropDown(prevState => !prevState)
+    }
+
+    const isMenuPage = location.pathname === "/menu"
+
     return (
         <>
         {dropDown && <Navbar onClick={toggleDropdown}/>} 
+        {cartDropDown && <Cart />}
         <header className="header">
             <button className="nav-icon" onClick={toggleDropdown}>
                     <img src={rectangle} alt="" className="rectangle"/>
@@ -22,15 +34,12 @@ const Header = () => {
                     <img src={rectangle} alt="" className="rectangle"/>
             </button>
 
-            <div className="cart-icon">
+            {isMenuPage && <div className="cart-icon" onClick={toggleCartDropDown}>
                 <img src={bag} alt="" className="bag-icon"/>
-                <div className="quantity-logo">7</div>
-            </div>
+                <div className="quantity-logo">{getQuantity()}</div>
+                {cartDropDown && <img src={orderArrow} className="orderArrow"/>}
+            </div>}
         </header>
-        
-        
-
-        
         </>
     )
 }

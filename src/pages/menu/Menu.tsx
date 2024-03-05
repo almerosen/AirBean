@@ -10,6 +10,9 @@ import "./Menu.scss"
 const Menu = () => {
     const [products, setProducts] = useState([])
 
+    // const {addToCart} = useCartStore()
+    
+ 
 
     useEffect(() => {
         const fetchData = async () => {
@@ -43,6 +46,7 @@ const Menu = () => {
                             title={product.title}
                             desc={product.desc}
                             price={product.price}
+                            // handleClick={() => addToCart(product)}
                             />
                     ))}
                 </div>

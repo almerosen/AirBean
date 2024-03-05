@@ -2,7 +2,7 @@
 
 .navbar-overlay {
     position: absolute;
-    width: 100%;
+    width: 375px;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); 
     z-index: 1000;
@@ -10,7 +10,7 @@
 
 .navbar {
     width: 375px;
-    height: 667px;
+    height: 100%;
     background-color: #2F2927;
     color: white;
     padding: 20px;
