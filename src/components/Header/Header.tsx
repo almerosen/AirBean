@@ -35,7 +35,7 @@ const Header = () => {
             </button>
 
             {isMenuPage && <div className="cart-icon" onClick={toggleCartDropDown}>
-                <img src={bag} alt="" className="bag-icon"/>
+                <img src={bag} alt="cart-icon" className="bag-icon"/>
                 <div className="quantity-logo">{getQuantity()}</div>
                 {cartDropDown && <img src={orderArrow} className="orderArrow"/>}
             </div>}

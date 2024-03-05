@@ -3,6 +3,7 @@ import useCartStore from "../../store/cartStore"
 import CartItem, { CartItemProps } from "../cartItem/CartItem"
 import "./Cart.scss"
 import polygon from "../../images/cart-images/caret-up-fill.svg"
+import OrderButton from "../OrderButton/OrderButton"
 
 const Cart = () => {
     const { cart, increaseQuantity ,getTotalPrice } = useCartStore()
@@ -34,10 +35,17 @@ const Cart = () => {
                     ))}
                 </div>
                 <div className="cart__order-sum">
-                    <div>Total</div>
-                    <div>{getTotalPrice()} kr</div>
+                    <p className="cart__order-sum__text">Total</p>
+                    <p className="cart__order-sum__text">{getTotalPrice()} kr</p>
                 </div>
-                <p>inkl moms + drönarleverans</p>
+                <p className="cart__moms-text">inkl moms + drönarleverans</p>
+
+                <div className="cart__order-button">
+                    <OrderButton 
+                        text="Take my money!"
+                    />
+                </div>        
+                
             </div>
         </div>
     )

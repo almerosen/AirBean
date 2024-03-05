@@ -1,9 +1,28 @@
 .cartItem {
-    font-family: "PT Serif", sans-serif;
     color: #2F2926;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    h2, p {
+        color: #2F2926;
+    }
+
+    h2 {
+        font-family: "PT Serif", sans-serif;
+        font-size: 20px;
+        margin-bottom: 3px;
+    }
+
+    p {
+        font-family: "Work Sans", sans-serif;
+        font-size: 12px;
+    }
+
+    .quantity__number {
+        font-size: 14px;
+        font-weight: 600;
+    }
 
 
     &__quantity {

@@ -1,5 +1,7 @@
 import useCartStore from "../../store/cartStore"
 import "./CartItem.scss"
+import upArrow from "../../images/cart-images/Vector 2.svg"
+import downArrow from "../../images/cart-images/Vector 3.svg"
 
 export type CartItemProps = {
     id: string
@@ -22,9 +24,15 @@ const CartItem = ({id, title, price, quantity, increaseQuantity}: CartItemProps)
                 <p>{price} kr</p>
             </div>
             <div className="cartItem__quantity">
-                <button className="increase-button" onClick={handleIncreaseQuantity}>+</button>
-                <div className="quantity">{quantity}</div>
-                <button className="decrease-button">-</button>
+                <button className="increase-button" onClick={handleIncreaseQuantity}>
+                    <img src={upArrow} alt="increase-logo" />
+                </button>
+                <div className="quantity">
+                    <p className="quantity__number">{quantity}</p>
+                </div>
+                <button className="decrease-button">
+                    <img src={downArrow} alt="decrease-logo" />
+                </button>
             </div>
         </div>
     )

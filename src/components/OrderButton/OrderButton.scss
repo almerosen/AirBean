@@ -1,0 +1,17 @@
+.order-button {
+    font-family: "PT Serif", sans-serif;
+    font-size: 24px;
+    width: 248px;
+    height: 55px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 27px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
