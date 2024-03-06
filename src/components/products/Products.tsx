@@ -8,8 +8,8 @@ export type ProductsProps = {
     title: string
     desc: string
     price: number
-    quantity: number
-    handleClick: () => void
+    // quantity: number
+    // handleClick: () => void
 }
 
 
@@ -23,7 +23,7 @@ const Products = (props: ProductsProps) => {
         addToCart({
             id: props.id,
             title: props.title,
-            desc: props.desc,
+            // desc: props.desc,
             price: props.price,
             quantity: 0
         })

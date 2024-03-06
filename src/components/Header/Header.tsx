@@ -9,7 +9,8 @@ import orderArrow from "../../images/cart-images/caret-up-fill.svg"
 import useCartStore from "../../store/cartStore"
 
 const Header = () => {
-    const { getQuantity } = useCartStore()
+    const { getTotalQuantity } = useCartStore()
+    
     const [dropDown, setDropDown] = useState(false)
     const [cartDropDown, setCartDropDown] = useState(false)
 
@@ -36,7 +37,7 @@ const Header = () => {
 
             {isMenuPage && <div className="cart-icon" onClick={toggleCartDropDown}>
                 <img src={bag} alt="cart-icon" className="bag-icon"/>
-                <div className="quantity-logo">{getQuantity()}</div>
+                <div className="quantity-logo">{getTotalQuantity()}</div>
                 {cartDropDown && <img src={orderArrow} className="orderArrow"/>}
             </div>}
         </header>

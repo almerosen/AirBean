@@ -2,18 +2,27 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { ProductsProps } from "../components/products/Products";
 
-interface CartStore {
+export interface CartStore {
     cart: ProductsProps[]
     addToCart: (product: ProductsProps) => void
+    getTotalQuantity: () => number
+    getTotalPrice: () => number
+    increaseQuantity: (id: string) => void
+    decreaseQuantity: (id: string) => void
 }
 
+type CartItem = {
+    id: string
+    price: number
+    quantity: number
+}
 
 const useCartStore = create( //funkar om jag tar bort CartStore...???
     persist(
         (set, get) => ({
             cart: [],
-            addToCart: (product: ProductsProps) => {
-                const existingProduct: ProductsProps | undefined = get().cart.find((cartItem) => cartItem.id === product.id)
+            addToCart: (product: CartItem) => {
+                const existingProduct = get().cart.find((cartItem: CartItem) => cartItem.id === product.id)
                 if (existingProduct) {
                     if(existingProduct.quantity > 0) {
                         existingProduct.quantity++
@@ -25,26 +34,42 @@ const useCartStore = create( //funkar om jag tar bort CartStore...???
             },
 
             getTotalPrice: () => {
-                return get().cart.reduce((total, product) => total + product.quantity * product.price, 0)
+                return get().cart.reduce((total: number, product: CartItem) => total + product.quantity * product.price, 0)
             },
 
-            getQuantity: () => {
-                return get().cart.reduce((totalQuantity, product) => totalQuantity + product.quantity, 0)
+            getTotalQuantity: () => {
+                return get().cart.reduce((totalQuantity: number, product: CartItem) => totalQuantity + product.quantity, 0)
             },
 
-            increaseQuantity: (id: number) => {
+            increaseQuantity: (id: string) => {
                 set((state) => ({
-                    cart: state.cart.map((item) => 
+                    cart: state.cart.map((item: CartItem) => 
                         item.id === id ? { ...item, quantity: item.quantity + 1 } : item
                     )
                 }))      
+            },
+
+            decreaseQuantity: (id: string) => {
+                set((state) => {
+                    const existingItem = state.cart.find((item) => item.id === id)
+                    if (existingItem) {
+                        if (existingItem.quantity === 1) {
+                            return { cart: state.cart.filter((item) => item.id !== id) }
+                        } else {
+                            const updatedCart = state.cart.map((item) => item.id === id ? { ...item, quantity :item.quantity - 1 } : item)
+                            return { cart: updatedCart }
+                        }
+                    }
+                    return state
+                })
             }
+            
         }),
         {
             name: "cart:",
             storage: createJSONStorage(() => sessionStorage)
         },
     ),
-) 
+)
 
 export default useCartStore

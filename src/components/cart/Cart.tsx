@@ -1,4 +1,3 @@
-import { useState } from "react"
 import useCartStore from "../../store/cartStore"
 import CartItem, { CartItemProps } from "../cartItem/CartItem"
 import "./Cart.scss"
@@ -6,7 +5,7 @@ import polygon from "../../images/cart-images/caret-up-fill.svg"
 import OrderButton from "../OrderButton/OrderButton"
 
 const Cart = () => {
-    const { cart, increaseQuantity ,getTotalPrice } = useCartStore()
+    const { cart, increaseQuantity , decreaseQuantity, getTotalPrice } = useCartStore()
     console.log(cart)
 
     // const [total, setTotal] = useState(0)
@@ -31,6 +30,7 @@ const Cart = () => {
                             price={product.price}
                             quantity={product.quantity}
                             increaseQuantity={increaseQuantity}
+                            decreaseQuantity={decreaseQuantity}
                         />
                     ))}
                 </div>
