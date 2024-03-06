@@ -23,7 +23,7 @@ const Navbar = (props: NavBarProps) => {
                 <div className="border"></div>
                 <li>Min profil</li>
                 <div className="border"></div>
-                <li>Orderstatus</li>
+                <li><Link to="/orderstatus">Orderstatus</Link></li>
             </ul>
         </nav>
         </div>

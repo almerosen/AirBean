@@ -3,7 +3,6 @@ import Header from "../../components/Header/Header"
 import Products from "../../components/products/Products"
 import { ProductsProps } from "../../components/products/Products"
 import Footer from "../../components/Footer/Footer"
-import useCartStore from "../../store/cartStore"
 import "./Menu.scss"
 
 

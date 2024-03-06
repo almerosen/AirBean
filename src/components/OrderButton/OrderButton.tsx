@@ -2,9 +2,10 @@ import { useState } from "react"
 import "./OrderButton.scss"
 import useCartStore from "../../store/cartStore"
 import useOrderStore from "../../store/orderStore"
+import { Navigate, useNavigate } from "react-router-dom"
 
 const OrderButton = (props) => {
-
+    const navigate = useNavigate()
     const { cart } = useCartStore() // hämta order från zustand state
     const { orderNumber } = useOrderStore()
     console.log(cart)
@@ -38,14 +39,17 @@ const OrderButton = (props) => {
 
                 useOrderStore.setState((state) => ({
                     ...state,
-                    orderNumber: data.orderNr
+                    orderNumber: data.orderNr,
+                    eta: data.eta
                 }))
 
-                fetchMessage(orderNumber)
+                // fetchMessage(orderNumber) denna kod ska köras när man klickar på Orderstatus-länken
             }
         } catch (error) {
             console.error(error)
         }
+
+        navigate("/orderstatus")
     }
 
     console.log(orderNumber)

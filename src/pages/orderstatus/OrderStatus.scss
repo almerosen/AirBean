@@ -1,0 +1,66 @@
+.orderstatus {
+    width: 375px;
+    height: 667px;
+    background-color: #E5674E;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 75px 40px;
+
+
+    h1, h2 {
+        font-family: "PT Serif", sans-serif;
+    }
+
+    h1 {
+        color: #FFFFFF;
+        font-weight: bold;
+        font-size: 36px;
+        text-align: center;
+    }
+
+    p {
+        font-family: "Work Sans";
+        color: white;
+    }
+
+    .ordernumber__text {
+        color: rgba(255, 255, 255, .7);
+        font-size: 16px;
+    }
+
+    .eta-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .eta__text {
+        font-size: 22px;
+    }
+
+    span {
+        font-weight: 700;
+    }
+
+    &__button {
+        height: 55px;
+        width: 184px;
+        border-radius: 27px;
+        background-color: white;
+        color: #2F2926;
+        font-family: "PT Serif", sans-serif;
+        font-size: 24px;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+    }
+}
