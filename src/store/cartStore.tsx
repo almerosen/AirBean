@@ -9,6 +9,7 @@ export interface CartStore {
     getTotalPrice: () => number
     increaseQuantity: (id: string) => void
     decreaseQuantity: (id: string) => void
+    clearCart: () => void
 }
 
 type CartItem = {
@@ -62,7 +63,9 @@ const useCartStore = create( //funkar om jag tar bort CartStore...???
                     }
                     return state
                 })
-            }
+            },
+
+            clearCart: () => set({ cart: [] })
             
         }),
         {

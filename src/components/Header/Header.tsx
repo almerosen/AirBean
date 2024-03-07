@@ -22,7 +22,7 @@ const Header = () => {
         setCartDropDown(prevState => !prevState)
     }
 
-    const isMenuPage = location.pathname === "/menu"
+    const isMenuPage = location.pathname === "/menu" // show cart only on menu page
 
     return (
         <>

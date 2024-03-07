@@ -1,4 +1,4 @@
-import useCartStore from "../../store/cartStore"
+import useCartStore, { CartStore } from "../../store/cartStore"
 import CartItem, { CartItemProps } from "../cartItem/CartItem"
 import "./Cart.scss"
 import polygon from "../../images/cart-images/caret-up-fill.svg"

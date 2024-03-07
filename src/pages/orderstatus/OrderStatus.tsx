@@ -50,7 +50,7 @@ const OrderStatus = () => {
 
     return (
         <div className="orderstatus">
-            <p className="ordernumber__text">Ordernummer <span>#{orderNumber}</span></p>
+            {orderNumber && <p className="ordernumber__text">Ordernummer <span>#{orderNumber}</span></p>}
             <img src={droneImage} alt="drone-image" />
             <div className="eta-container">
             {orderNumber ? (
@@ -61,7 +61,7 @@ const OrderStatus = () => {
                         </p>
                     </>
                 ) : (
-                    <p>{message}</p>
+                    <h2>{message}</h2>
                 )}
 
             </div>

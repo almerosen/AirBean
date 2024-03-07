@@ -4,9 +4,13 @@ import useCartStore from "../../store/cartStore"
 import useOrderStore from "../../store/orderStore"
 import { Navigate, useNavigate } from "react-router-dom"
 
-const OrderButton = (props) => {
+type OrderButton = {
+    text: string
+}
+
+const OrderButton = (props: OrderButton) => {
     const navigate = useNavigate()
-    const { cart } = useCartStore() // hämta order från zustand state
+    const { cart, clearCart } = useCartStore() // hämta order från zustand state
     const { orderNumber } = useOrderStore()
     console.log(cart)
 
@@ -15,9 +19,13 @@ const OrderButton = (props) => {
     const sendOrder = async () => {
         try {
 
+            if(cart.length === 0 ) {
+                return
+            }
+
             const orderDetails = {
                 details: {
-                    order: cart.map(item => ({
+                    order: cart.map((item)=> ({
                         name: item.title,
                         price: item.price
                     }))
@@ -49,24 +57,26 @@ const OrderButton = (props) => {
             console.error(error)
         }
 
+        clearCart()
+
         navigate("/orderstatus")
     }
 
     console.log(orderNumber)
 
-    const fetchMessage = async (orderNumber) => {
-        try {
-            const response = await fetch(`https://airbean-api-xjlcn.ondigitalocean.app/api/beans/order/status/${orderNumber}`)
-            if (!response.ok) {
-                throw new Error (`Failed fetch data with status ${response.status}`)
-            } else {
-                const message = await response.json()
-                console.log(message)
-            }
-        } catch (error) {
-            console.error(error)
-        }
-    }
+    // const fetchMessage = async (orderNumber) => {
+    //     try {
+    //         const response = await fetch(`https://airbean-api-xjlcn.ondigitalocean.app/api/beans/order/status/${orderNumber}`)
+    //         if (!response.ok) {
+    //             throw new Error (`Failed fetch data with status ${response.status}`)
+    //         } else {
+    //             const message = await response.json()
+    //             console.log(message)
+    //         }
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
+    // }
 
 
 

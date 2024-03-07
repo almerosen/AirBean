@@ -6,6 +6,7 @@ import Header from "./components/Header/Header";
 import About from "./pages/about/About";
 import Cart from "./components/cart/Cart";
 import OrderStatus from "./pages/orderstatus/OrderStatus";
+import Profile from "./pages/profile/Profile";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orderstatus" element={<OrderStatus />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );
