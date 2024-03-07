@@ -1,0 +1,100 @@
+.overlay {
+    width: 341px;
+    height: 565.77px;
+    background-color: #F3E4E1;
+    z-index: 1000;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    padding: 15.5px;
+
+    h1 {
+        font-family: "PT Serif", sans-serif;
+        font-size: 32px;
+        font-weight: bold;
+        color: #2F2926;
+    }
+
+    p {
+        font-family: "Work Sans", sans-serif;
+    }
+    &__button-container {
+
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+
+        .overlay__button {
+            width: 248px;
+            height: 55px;
+            background-color: #2F2926;
+            font-family: "PT Serif", sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 27px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }    
+    
+    }
+    
+    .header-container {
+        text-align: center;
+        margin-bottom: 40px;
+
+        p {
+            font-size: 16px;
+            margin-top: 5px;
+            line-height: 24px;
+        }
+    }
+
+    
+    label {
+        font-size: 12px;
+        font-family: "Work Sans", sans-serif;
+        color: #2F2926;
+    }
+
+    .inputfield {
+        width: 100%;
+        border-radius: 6px;
+        border: 1px solid black;
+        height: 48px;
+        text-indent: 15px;
+        background-color: #F3E4E1;
+        font-family: "Work Sans", sans-serif;
+        font-size: 16px;
+        margin: 5px 0 10px 0;
+    }
+
+    .radio-button-container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+
+        .radio-button {
+            width: 12px;
+            height: 12px;
+
+            &:checked {
+                accent-color: #0E927D;
+                // border-color: black;
+            }
+        }
+
+    }
+
+   
+    
+}

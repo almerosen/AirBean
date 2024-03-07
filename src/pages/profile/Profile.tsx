@@ -1,12 +1,25 @@
+import { useState } from "react"
 import Header from "../../components/Header/Header"
 import OrderHistory from "../../components/OrderHistory/OrderHistory"
 import profileImage from "../../images/profile-images/Profile.svg"
 import "./Profile.scss"
+import ProfileOverlay from "../../components/profileOverlay/ProfileOverlay"
 
 const Profile = () => {
+    const [overlay, setOverlay] = useState(true)
+
+    const toggleOverlay = () => {
+        setOverlay(prevState => !prevState)
+    }
+
     return (
         <div className="profile">
+            {overlay && <ProfileOverlay 
+                toggleOverlay={toggleOverlay}
+            />}
+            
             <Header />
+            
             <div className="profile__user-details">
                 <img src={profileImage} alt="profile-image" />
                 <h1>Sixten Kaffelöver</h1>
