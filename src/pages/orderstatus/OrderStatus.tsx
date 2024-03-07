@@ -15,8 +15,19 @@ const OrderStatus = () => {
     useEffect(() => {
         if (orderNumber) {
             const fetchEtaAndMessage = async (orderNumber) => {
+
+                const token = sessionStorage.getItem("token")
+                if (!token) {
+                    return
+                }
                 try {
-                    const response = await fetch(`https://airbean-api-xjlcn.ondigitalocean.app/api/beans/order/status/${orderNumber}`)
+                    const response = await fetch(`https://airbean-api-xjlcn.ondigitalocean.app/api/beans/order/status/${orderNumber}`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        }
+                    })
                     if (!response.ok) {
                         throw new Error (`Failed fetch data with status ${response.status}`)
                     } else {
@@ -45,6 +56,7 @@ const OrderStatus = () => {
                 }
             }
             fetchMessage()
+            return
         }
     }, [orderNumber])
 

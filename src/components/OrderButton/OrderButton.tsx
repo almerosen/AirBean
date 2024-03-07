@@ -23,6 +23,11 @@ const OrderButton = (props: OrderButton) => {
                 return
             }
 
+            const token = sessionStorage.getItem("token")
+            if (!token) {
+                return
+            }
+
             const orderDetails = {
                 details: {
                     order: cart.map((item)=> ({
@@ -36,6 +41,7 @@ const OrderButton = (props: OrderButton) => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify(orderDetails)
             })

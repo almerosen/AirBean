@@ -1,6 +1,30 @@
 import "./OrderHistory.scss"
 
 const OrderHistory = () => {
+
+    const getOrderHistory = async () => {
+        const token = sessionStorage.getItem("token")
+
+        try {
+            const response = await fetch("https://airbean-api-xjlcn.ondigitalocean.app/api/user/history", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+            if (!response.ok) {
+                throw new Error (`Failed fetch data with status ${response.status}`)
+            } else {
+                const orderHistoryData = await response.json()
+                console.log(orderHistoryData)
+            }
+        } catch (error) {
+            console.error(error)
+        } 
+    }
+    getOrderHistory()
+
     return (
         <div className="order">
             <div className="order__order-number-date">
