@@ -21,7 +21,7 @@ const Navbar = (props: NavBarProps) => {
                 <div className="border"></div>
                 <li><Link to="/about">Vårt kaffe</Link></li>
                 <div className="border"></div>
-                <li>Min profil</li>
+                <li><Link to="/profile">Min profil</Link></li>
                 <div className="border"></div>
                 <li><Link to="/orderstatus">Orderstatus</Link></li>
             </ul>

@@ -1,36 +1,41 @@
 import "./ProfileOverlay.scss"
 import logo from "../../images/profileOverlay-images/Group 6.svg"
 import { useState } from "react"
+import useAuthStore from "../../store/useAuthStore"
 
 const ProfileOverlay = (props) => {
+    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
+    const [gdpr, setGdpr] = useState(false)
+    const { setUser } = useAuthStore()
 
-    const [formData, setFormData] = useState({
-        name: "",
-        epost: "",
-        gdpr: false,
-    })
+    // const [formData, setFormData] = useState({
+    //     name: "",
+    //     epost: "",
+    //     gdpr: false,
+    // })
 
-    const handleChange = (event) => {
-        const { name, value, type, checked } = event.target
-        const newValue = type === "checkbox" ? checked : value
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            [name]: newValue
-        }))
-    }
+    // const handleChange = (event) => {
+    //     const { name, value, type, checked } = event.target
+    //     setFormData((prevFormData) => ({
+    //         ...prevFormData,
+    //         [name]: type === "checkbox" ? checked : value
+    //     }))
+    // }
+
+
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        alert(`Name: ${formData.name}, Email: ${formData.epost}, gdpr: ${formData.gdpr} `)
         props.toggleOverlay()
-        console.log(formData)
 
 
         const signUp = async () => {
             const signUpData = {
-                username: formData.name,
-                password: formData.epost
+                username: username,
+                password: email,
             }
+            console.log(signUpData)
 
             try {
                 const response = await fetch("https://airbean-api-xjlcn.ondigitalocean.app/api/user/signup", {
@@ -46,7 +51,7 @@ const ProfileOverlay = (props) => {
                     const data = await response.json()
                     console.log(data)
 
-                    if (data.success) {
+                    // if (data.success) {
                         const loginData = {
                             username: signUpData.username,
                             password: signUpData.password
@@ -66,8 +71,9 @@ const ProfileOverlay = (props) => {
                             console.log(token)
 
                             sessionStorage.setItem("token", token.token)
+                            setUser(signUpData)
                         }
-                    }
+                    // }
                 }
             } catch (error) {
                 console.error (error)
@@ -91,7 +97,7 @@ const ProfileOverlay = (props) => {
                     name="name"
                     className="inputfield"
                     placeholder="name"
-                    onChange={handleChange}
+                    onChange={(event) => setUsername(event.target.value)}
                 />
                 <label htmlFor="">Epost</label>
                 <input 
@@ -99,7 +105,7 @@ const ProfileOverlay = (props) => {
                     name="epost"
                     className="inputfield"
                     placeholder="sixten.kaffelover@zocom.se"
-                    onChange={handleChange}
+                    onChange={(event) => setEmail(event.target.value)}
 
                 />
                 <div className="radio-button-container">
@@ -107,7 +113,7 @@ const ProfileOverlay = (props) => {
                         type="radio"
                         name="gdpr"
                         className="radio-button"
-                        onChange={handleChange}
+                        onChange={(event) => setGdpr(event.target.checked)}
 
                     />
                     <label htmlFor="">GDPR Ok!</label>

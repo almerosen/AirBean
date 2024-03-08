@@ -30,12 +30,16 @@ const OrderButton = (props: OrderButton) => {
 
             const orderDetails = {
                 details: {
-                    order: cart.map((item)=> ({
-                        name: item.title,
-                        price: item.price
-                    }))
-                }
-            }   
+                    order: cart.map((item) => {
+                        return {
+                            name: item.title,
+                            price: item.price,
+                        }
+                    }),
+                },
+            }
+            console.log(cart)
+            console.log(orderDetails)
 
             const response = await fetch("https://airbean-api-xjlcn.ondigitalocean.app/api/beans/order/", {
                 method: "POST",
