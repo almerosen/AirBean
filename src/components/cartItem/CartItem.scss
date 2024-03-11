@@ -19,6 +19,19 @@
         font-size: 12px;
     }
 
+    &__title-div {
+        width: 229.92px;
+        position: relative;
+
+        p {
+            position: absolute;
+            bottom: 2.5px;
+            right: -35px;
+            letter-spacing: 2px;
+            color: rgba(0, 0, 0, .4);
+        }
+    }
+
     .quantity__number {
         font-size: 14px;
         font-weight: 600;

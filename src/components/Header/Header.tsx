@@ -35,9 +35,9 @@ const Header = () => {
                     <img src={rectangle} alt="" className="rectangle"/>
             </button>
 
-            {isMenuPage && <div className="cart-icon" onClick={toggleCartDropDown}>
+            {isMenuPage && <div className="cart-icon" onClick={toggleCartDropDown}> 
                 <img src={bag} alt="cart-icon" className="bag-icon"/>
-                <div className="quantity-logo">{getTotalQuantity()}</div>
+               {getTotalQuantity() > 0 && <div className="quantity-logo">{getTotalQuantity()}</div>}
                 {cartDropDown && <img src={orderArrow} className="orderArrow"/>}
             </div>}
         </header>

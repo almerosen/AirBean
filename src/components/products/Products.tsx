@@ -2,6 +2,7 @@
 import "./Products.scss"
 import buttonLogo from "../../images/products-images/addToCartLogo.svg"
 import useCartStore from "../../store/cartStore"
+import { render } from "react-dom"
 
 export type ProductsProps = {
     id: string
@@ -29,6 +30,10 @@ const Products = (props: ProductsProps) => {
         })
     }
 
+    const renderDots = () => {
+        return "." .repeat(24)
+    }
+
 
     return (
         <div className="product">
@@ -36,7 +41,10 @@ const Products = (props: ProductsProps) => {
                 <img src={buttonLogo} alt="button-logo" />
             </button>
             <div className="product__name">
-                <h2>{props.title}</h2>
+                <div className="product__name__title-div">
+                    <p>{renderDots()}</p>
+                    <h2>{props.title}</h2>
+                </div>
                 <p>{props.desc}</p>
             </div>
             <div className="product__price">

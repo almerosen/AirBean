@@ -27,6 +27,19 @@
 
     &__name {
         width: 194.44px;
+
+        &__title-div {
+            position: relative;
+
+            p {
+                width: 120.75px;
+                position: absolute;
+                bottom: 3px;
+                right: 0;
+                color: rgba(0, 0, 0, .4);
+                letter-spacing: 2px;
+            }
+        }
     }
 
 }
@@ -44,6 +57,10 @@
 
     &:hover {
         cursor: pointer;
+    }
+
+    &:active {
+        background-color: #504641;
     }
 
 }

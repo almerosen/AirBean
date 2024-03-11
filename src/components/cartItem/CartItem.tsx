@@ -22,10 +22,17 @@ const CartItem = ({id, title, price, quantity, increaseQuantity, decreaseQuantit
         {increaseQuantity(id)}
     }
 
+    const renderDots = () => {
+        return "." .repeat(30)
+    }
+
     return (
         <div className="cartItem">
             <div className="cartItem__title">
-                <h2>{title}</h2>
+                <div className="cartItem__title-div">
+                    <p>{renderDots()}</p>
+                    <h2>{title}</h2>
+                </div>
                 <p>{price} kr</p>
             </div>
             <div className="cartItem__quantity">

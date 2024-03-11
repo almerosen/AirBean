@@ -35,7 +35,7 @@ const ProfileOverlay = (props) => {
                 username: username,
                 password: email,
             }
-            console.log(signUpData)
+            console.log("Sign up data:", signUpData)
 
             try {
                 const response = await fetch("https://airbean-api-xjlcn.ondigitalocean.app/api/user/signup", {
@@ -45,12 +45,14 @@ const ProfileOverlay = (props) => {
                     },
                     body: JSON.stringify(signUpData),
                 })
+                console.log(response)
                 if (!response.ok) {
-                    throw new Error (`Failed fetch data with status ${response.status}`)
+                    throw new Error (`Failed fetch data - status ${response.status}`)
                 } else {
                     const data = await response.json()
-                    console.log(data)
+                    console.log("Sign up response:", data)
 
+                    // Loggar in direkt efter registrering:
                     // if (data.success) {
                         const loginData = {
                             username: signUpData.username,
@@ -67,11 +69,18 @@ const ProfileOverlay = (props) => {
                         if(!responseLogin.ok) {
                             throw new Error (`Failed fetch data with status ${responseLogin.status}`)
                         } else {
-                            const token = await responseLogin.json()
-                            console.log(token)
+                            const responseData = await responseLogin.json()
+                            console.log("Login response:", responseData)
 
-                            sessionStorage.setItem("token", token.token)
-                            setUser(signUpData)
+                            if(responseData.success === false) {
+                                alert("wrong username or password")
+                                // props.toggleOverlay()
+                            } else {
+                                sessionStorage.setItem("token", responseData.token)
+                                setUser(signUpData)
+                            }
+
+                            
                         }
                     // }
                 }

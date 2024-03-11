@@ -8,6 +8,7 @@ import "./Menu.scss"
 
 const Menu = () => {
     const [products, setProducts] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
 
     // const {addToCart} = useCartStore()
     
@@ -21,7 +22,9 @@ const Menu = () => {
                     throw new Error (`Failed fetch data with status ${response.status}`)
                 } else {
                     const data = await response.json()
+                    console.log(data)
                     setProducts(data.menu)
+                    setIsLoading(false)
                 }
             } catch(error) {
                 console.error(error)
@@ -30,14 +33,16 @@ const Menu = () => {
         fetchData()
     }, [])
 
-    console.log(products)
 
     return (
         <>
             <div className="menu-wrapper">
                 <Header />
                 <h1 style={{marginBottom: "2rem"}}>Meny</h1>
-                <div className="products-wrapper">
+                {isLoading ? (
+                    <p>Loading...</p>
+                ) : ( 
+                    <div className="products-wrapper">
                     {products.map((product: ProductsProps) => (
                         <Products 
                             key={product.id}
@@ -46,13 +51,12 @@ const Menu = () => {
                             desc={product.desc}
                             price={product.price}
                             // handleClick={() => addToCart(product)}
-                            />
+                        />
                     ))}
                 </div>
+                )}              
                 <Footer />
-            </div>
-            
-
+            </div>            
         </>
     )
 }
