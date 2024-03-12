@@ -11,14 +11,12 @@ const SignInForm = (props) => {
     const { user, setUser } = useAuthStore()
 
 
-    const login = async (event) => {
-        event.preventDefault()
+    const loginUser = async () => {
 
-        const loginData = {
+        const userData = {
             username: username,
             password: email,
         }
-        console.log(loginData)
 
         try {
             const response = await fetch("https://airbean-api-xjlcn.ondigitalocean.app/api/user/login", {
@@ -26,24 +24,39 @@ const SignInForm = (props) => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(loginData)
+                body: JSON.stringify(userData)
             })
             if (!response.ok) {
-                throw new Error (`Failed fetch data - status ${response.status}`)
+                throw new Error (`Failed to login - status ${response.status}`)
             } else {
-                const data = await response.json()
-                console.log("login response:", data)
+                const loginResponse = await response.json()
+                console.log("Login response:", loginResponse)
 
-                if (data.success === false) {
-                    alert(data.message)
+                if (loginResponse.success === false) {
+                    alert(loginResponse.message)
+                    throw new Error(loginResponse.message)
                 } else {
-                    sessionStorage.setItem("token", data.token)
-                    setUser(loginData)
+                    setUser(userData)
+                    sessionStorage.setItem("token", loginResponse.token)
                 }
             }
-        } catch(error) {
-            console.error(error)
-        } 
+        } catch (error) {
+            console.error("Error during login: ", error)
+            throw new Error("Failed to login due to an error");
+        }
+    }
+
+
+    const handleLogin = async (event) => {
+        event.preventDefault()
+
+        const loginData = {
+            username: username,
+            password: email,
+        }
+        console.log("Login data:", loginData)
+
+       loginUser()
     }
 
 
@@ -55,7 +68,7 @@ const SignInForm = (props) => {
                 <p>Här kan du logga in för att spara och se din orderhistorik.</p>
             </div>
 
-            <form onSubmit={login}>
+            <form onSubmit={handleLogin}>
                 <label htmlFor="">Name</label>
                 <input 
                     type="text"
@@ -93,8 +106,6 @@ const SignInForm = (props) => {
                 <p>Create a new account?</p>
                 <button className="login-form-button" onClick={props.toggleSignIn}>Register</button>
             </div>
-            
-
         </div>
     )
 }

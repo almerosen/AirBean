@@ -8,6 +8,11 @@ type OrderButton = {
     text: string
 }
 
+export type OrderDetails = {
+    title: string,
+    price: number
+}
+
 
 const tokenVerification = async () => {
     const token = sessionStorage.getItem("token")
@@ -59,7 +64,7 @@ const OrderButton = (props: OrderButton) => {
 
             const orderDetails = {
                 details: {
-                    order: cart.map((item) => {
+                    order: cart.map((item: OrderDetails) => {
                         return {
                             name: item.title,
                             price: item.price,

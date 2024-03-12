@@ -14,6 +14,7 @@ export interface CartStore {
 
 type CartItem = {
     id: string
+    title: string
     price: number
     quantity: number
 }

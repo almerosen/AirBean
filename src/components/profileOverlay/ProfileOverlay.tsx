@@ -30,69 +30,76 @@ const ProfileOverlay = (props) => {
     // }
 
 
+    const signUp = async () => {
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        // props.toggleOverlay()
+        // Some basic validation...
+        if(!username || !email) {
+            alert("Please fill in username and email")
+            return
+        }
+        // validate email 
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        if(!emailRegex.test(email)) {
+            alert("Please enter a valid email")
+            return
+        }
 
+        const userData = {
+            username: username,
+            password: email,
+        }
+        console.log("Sign up data:", userData)
 
-        const signUp = async () => {
-            const signUpData = {
-                username: username,
-                password: email,
-            }
-            console.log("Sign up data:", signUpData)
+        try {
+            const response = await fetch("https://airbean-api-xjlcn.ondigitalocean.app/api/user/signup", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userData),
+            })
+            console.log(response)
 
-            try {
-                const response = await fetch("https://airbean-api-xjlcn.ondigitalocean.app/api/user/signup", {
+            if (!response.ok) {
+                throw new Error (`Failed fetch data - status ${response.status}`)
+            } else {
+                const data = await response.json()
+                console.log("Sign up response:", data)
+
+                // Loggar in direkt efter registrering:
+                const responseLogin = await fetch("https://airbean-api-xjlcn.ondigitalocean.app/api/user/login", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(signUpData),
+                    body: JSON.stringify(userData)
                 })
-                console.log(response)
-                if (!response.ok) {
-                    throw new Error (`Failed fetch data - status ${response.status}`)
-                } else {
-                    const data = await response.json()
-                    console.log("Sign up response:", data)
+                
+                if(!responseLogin.ok) {
+                    throw new Error (`Failed fetch data with status ${responseLogin.status}`)
+                    } else {
+                        const responseData = await responseLogin.json()
+                        console.log("Login response:", responseData)
 
-                    // Loggar in direkt efter registrering:
-                    // if (data.success) {
-                        const loginData = {
-                            username: signUpData.username,
-                            password: signUpData.password
-                        }
-
-                        const responseLogin = await fetch("https://airbean-api-xjlcn.ondigitalocean.app/api/user/login", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify(loginData)
-                        })
-                        if(!responseLogin.ok) {
-                            throw new Error (`Failed fetch data with status ${responseLogin.status}`)
+                        if(responseData.success === false) {
+                            alert(`${responseData.message}`)
                         } else {
-                            const responseData = await responseLogin.json()
-                            console.log("Login response:", responseData)
-
-                            if(responseData.success === false) {
-                                alert(`${responseData.message}`)
-                            } else {
-                                sessionStorage.setItem("token", responseData.token)
-                                setUser(signUpData)
-                            }    
-                        }
-                    // }
-                }
-            } catch (error) {
-                console.error (error)
+                            sessionStorage.setItem("token", responseData.token)
+                            setUser(userData)
+                        }    
+                    }             
             }
+        } catch (error) {
+            console.error (error)
         }
+    }
+
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
         signUp()
     }
+
 
     return (
         <div>
@@ -143,8 +150,7 @@ const ProfileOverlay = (props) => {
                         </form>
                         <div className="login-register-container">
                             <p>Already a registrered user?</p>
-                            <button className="login-form-button" onClick={toggleSignIn}>Sign in</button>
-
+                            <button className="login-form-button" onClick={toggleSignIn}>Login</button>
                         </div>
                     </div>
                 )
