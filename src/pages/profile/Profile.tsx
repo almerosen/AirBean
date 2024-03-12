@@ -66,9 +66,7 @@ const Profile = () => {
 
     return (
         <div className="profile">
-            {user ? null : <ProfileOverlay 
-                toggleOverlay={toggleOverlay}
-            />}        
+            {user ? null : <ProfileOverlay />}        
             <Header />         
             <div className="profile__user-details">
                 <img src={profileImage} alt="profile-image" />

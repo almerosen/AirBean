@@ -2,13 +2,19 @@ import "./ProfileOverlay.scss"
 import logo from "../../images/profileOverlay-images/Group 6.svg"
 import { useState } from "react"
 import useAuthStore from "../../store/useAuthStore"
+import SignInForm from "../SignInForm/SignInForm"
 
 const ProfileOverlay = (props) => {
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [gdpr, setGdpr] = useState(false)
+    const [signIn, setSignIn] = useState(false)
     const { setUser } = useAuthStore()
 
+    const toggleSignIn = () => {
+        setSignIn(prevState => !prevState)
+        console.log(signIn)
+    }
     // const [formData, setFormData] = useState({
     //     name: "",
     //     epost: "",
@@ -27,7 +33,7 @@ const ProfileOverlay = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        props.toggleOverlay()
+        // props.toggleOverlay()
 
 
         const signUp = async () => {
@@ -73,14 +79,11 @@ const ProfileOverlay = (props) => {
                             console.log("Login response:", responseData)
 
                             if(responseData.success === false) {
-                                alert("wrong username or password")
-                                // props.toggleOverlay()
+                                alert(`${responseData.message}`)
                             } else {
                                 sessionStorage.setItem("token", responseData.token)
                                 setUser(signUpData)
-                            }
-
-                            
+                            }    
                         }
                     // }
                 }
@@ -92,51 +95,61 @@ const ProfileOverlay = (props) => {
     }
 
     return (
-        <div className="overlay">
-            <div className="header-container">
-                <img src={logo} alt="" />
-                <h1>Välkommen till AirBean-familjen!</h1>
-                <p>Genom att skapa ett konto nedan kan du spara och se din orderhistorik.</p>
-            </div>
-
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="">Name</label>
-                <input 
-                    type="text"
-                    name="name"
-                    className="inputfield"
-                    placeholder="name"
-                    onChange={(event) => setUsername(event.target.value)}
+        <div>
+            {signIn ? (
+                <SignInForm 
+                    toggleSignIn={toggleSignIn} 
                 />
-                <label htmlFor="">Epost</label>
-                <input 
-                    type="text"
-                    name="epost"
-                    className="inputfield"
-                    placeholder="sixten.kaffelover@zocom.se"
-                    onChange={(event) => setEmail(event.target.value)}
+                ) : (
+                    <div className="overlay">
+                        <div className="header-container">
+                            <img src={logo} alt="" />
+                            <h1>Välkommen till AirBean-familjen!</h1>
+                            <p>Genom att skapa ett konto nedan kan du spara och se din orderhistorik.</p>
+                        </div>
 
-                />
-                <div className="radio-button-container">
-                    <input 
-                        type="radio"
-                        name="gdpr"
-                        className="radio-button"
-                        onChange={(event) => setGdpr(event.target.checked)}
+                        <form onSubmit={handleSubmit}>
+                            <label htmlFor="">Name</label>
+                            <input 
+                                type="text"
+                                name="name"
+                                className="inputfield"
+                                placeholder="name"
+                                onChange={(event) => setUsername(event.target.value)}
+                            />
+                            <label htmlFor="">Epost</label>
+                            <input 
+                                type="text"
+                                name="epost"
+                                className="inputfield"
+                                placeholder="sixten.kaffelover@zocom.se"
+                                onChange={(event) => setEmail(event.target.value)}
+                            />
+                            <div className="radio-button-container">
+                                <input 
+                                    type="radio"
+                                    name="gdpr"
+                                    className="radio-button"
+                                    onChange={(event) => setGdpr(event.target.checked)}
 
-                    />
-                    <label htmlFor="">GDPR Ok!</label>
-                </div>
+                                />
+                                <label htmlFor="">GDPR Ok!</label>
+                            </div>
                 
-                <div className="overlay__button-container">
-                    <button className="overlay__button">Brew me a cup!
-                    </button>
-                </div>
+                            <div className="overlay__button-container">
+                                <button className="overlay__button">Brew me a cup!
+                                </button>
+                            </div>
+                        </form>
+                        <div className="login-register-container">
+                            <p>Already a registrered user?</p>
+                            <button className="login-form-button" onClick={toggleSignIn}>Sign in</button>
 
-            </form>
-
-        </div>
-    )
+                        </div>
+                    </div>
+                )
+            }        
+        </div>)
 }
 
 export default ProfileOverlay
