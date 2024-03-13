@@ -55,12 +55,19 @@
     align-items: center;
     margin-top: 7px;
 
+    &.active {
+        background-color: #73645d;
+      
+    }
+
     &:hover {
         cursor: pointer;
     }
 
     &:active {
         background-color: #504641;
+        transform: scale(0.9);
+        transition: transform ;
     }
 
 }

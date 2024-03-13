@@ -2,15 +2,23 @@ import { useEffect, useState } from "react"
 import Header from "../../components/Header/Header"
 import OrderHistory from "../../components/OrderHistory/OrderHistory"
 import profileImage from "../../images/profile-images/Profile.svg"
+import logoutImage from "../../images/profile-images/logout.svg"
 import "./Profile.scss"
 import ProfileOverlay from "../../components/profileOverlay/ProfileOverlay"
 import useAuthStore from "../../store/useAuthStore"
 import useOrderStore from "../../store/orderStore"
 
+interface OrderData {
+    orderNr: string
+    orderDate: string
+    total: number
+}
+
+
 
 const Profile = () => {
     const [overlay, setOverlay] = useState(true)
-    const { user } = useAuthStore()
+    const { isLoggedIn, username, email, logout } = useAuthStore()
 
     
     const toggleOverlay = () => {
@@ -19,7 +27,7 @@ const Profile = () => {
 
     
     // const { orderNumber } = useOrderStore()
-    const [orderHistory, setOrderHistory] = useState([])
+    const [orderHistory, setOrderHistory] = useState<OrderData[]>([])
     const [ordersMessage, setOrdersMessage] = useState("")
 
 
@@ -53,10 +61,10 @@ const Profile = () => {
     };
 
     useEffect(() => {
-        if (user) {
+        if (isLoggedIn) {
             getOrderHistory();
         }
-    }, [user]); // lägga till orderHitstory?
+    }, [isLoggedIn]); // lägga till orderHitstory?
 
     
     const totalSum = orderHistory.length > 0 ? orderHistory.reduce((acc, currentItem) => {
@@ -66,13 +74,17 @@ const Profile = () => {
 
     return (
         <div className="profile">
-            {user ? null : <ProfileOverlay />}        
+            {isLoggedIn ? null : <ProfileOverlay />}        
             <Header />         
             <div className="profile__user-details">
                 <img src={profileImage} alt="profile-image" />
-                <h1>{user ? user.username: "Sixten Kaffelövér"}</h1>
-                <p>{user ? user.password: "sixten.kaffelöver@zocom.se"}</p>
+                <h1>{isLoggedIn ? username : "Sixten Kaffelövér"}</h1>
+                <p>{isLoggedIn ? email : "sixten.kaffelöver@zocom.se"}</p>
+                <button className="profile__logout-button" onClick={logout}>
+                    <img src={logoutImage} />
+                </button>
             </div>
+           
             <div className="profile__order-history">
                 <h2>Orderhistorik</h2>
                 <div className="orders-wrapper">

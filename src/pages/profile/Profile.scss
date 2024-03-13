@@ -1,5 +1,5 @@
 .profile {
-    min-height: 675px;
+    min-height: 760px;
     width: 375px;
     background-color: #2F2926;
     position: relative;
@@ -28,8 +28,23 @@
         }
     }
 
+    &__logout-button {
+        // position: absolute;
+        // top: 30px;
+        // right: 20px;
+        background-color: transparent;
+        border: none;
+        margin-top: 20px;
+        // text-decoration: underline;
+        // font-weight: bold;
+        // font-size: 16px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
     &__order-history {
-        margin-top: 50px;
         padding: 30px;
 
         h2 {

@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react"
 import "./OrderHistory.scss"
-import useOrderStore from "../../store/orderStore"
 
+export type OrderHistory = {
+    orderNr: string,
+    orderDate: string,
+    total: number
+}
 
-const OrderHistory = (props) => {
-
-
-    
+const OrderHistory = (props: OrderHistory) => {
 
     return (
         <div className="order">

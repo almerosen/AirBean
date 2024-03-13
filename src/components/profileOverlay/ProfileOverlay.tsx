@@ -6,10 +6,11 @@ import SignInForm from "../SignInForm/SignInForm"
 
 const ProfileOverlay = (props) => {
     const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
     const [gdpr, setGdpr] = useState(false)
     const [signIn, setSignIn] = useState(false)
-    const { setUser } = useAuthStore()
+    const { login } = useAuthStore()
 
     const toggleSignIn = () => {
         setSignIn(prevState => !prevState)
@@ -33,7 +34,7 @@ const ProfileOverlay = (props) => {
     const signUp = async () => {
 
         // Some basic validation...
-        if(!username || !email) {
+        if(!username || !email || !password) {
             alert("Please fill in username and email")
             return
         }
@@ -44,11 +45,17 @@ const ProfileOverlay = (props) => {
             return
         }
 
+        const registerData = {
+            username: username,
+            email: email,
+        }
+
         const userData = {
             username: username,
-            password: email,
+            password: password,
         }
         console.log("Sign up data:", userData)
+        console.log("register data", registerData)
 
         try {
             const response = await fetch("https://airbean-api-xjlcn.ondigitalocean.app/api/user/signup", {
@@ -85,7 +92,7 @@ const ProfileOverlay = (props) => {
                             alert(`${responseData.message}`)
                         } else {
                             sessionStorage.setItem("token", responseData.token)
-                            setUser(userData)
+                            login(registerData) //sets username and email to global state in zustand
                         }    
                     }             
             }
@@ -116,13 +123,21 @@ const ProfileOverlay = (props) => {
                         </div>
 
                         <form onSubmit={handleSubmit}>
-                            <label htmlFor="">Name</label>
+                            <label htmlFor="">Namn</label>
                             <input 
                                 type="text"
                                 name="name"
                                 className="inputfield"
                                 placeholder="name"
                                 onChange={(event) => setUsername(event.target.value)}
+                            />
+                            <label htmlFor="">Lösenord</label>
+                            <input 
+                                type="text" //password
+                                name="password"
+                                className="inputfield"
+                                placeholder="I epost-format..."
+                                onChange={(event) => setPassword(event.target.value)}
                             />
                             <label htmlFor="">Epost</label>
                             <input 
@@ -149,8 +164,8 @@ const ProfileOverlay = (props) => {
                             </div>
                         </form>
                         <div className="login-register-container">
-                            <p>Already a registrered user?</p>
-                            <button className="login-form-button" onClick={toggleSignIn}>Login</button>
+                            <p>Har du redan ett konto?</p>
+                            <button className="login-form-button" onClick={toggleSignIn}>Logga in</button>
                         </div>
                     </div>
                 )

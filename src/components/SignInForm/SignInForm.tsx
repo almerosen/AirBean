@@ -6,16 +6,22 @@ import "./SignInForm.scss"
 
 const SignInForm = (props) => {
     const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
     const [gdpr, setGdpr] = useState(false)
-    const { user, setUser } = useAuthStore()
+    const { login } = useAuthStore()
 
 
     const loginUser = async () => {
 
+        const loginData = {
+            username: username,
+            email: email,
+        }
+
         const userData = {
             username: username,
-            password: email,
+            password: password,
         }
 
         try {
@@ -36,7 +42,7 @@ const SignInForm = (props) => {
                     alert(loginResponse.message)
                     throw new Error(loginResponse.message)
                 } else {
-                    setUser(userData)
+                    login(loginData)
                     sessionStorage.setItem("token", loginResponse.token)
                 }
             }
@@ -52,7 +58,8 @@ const SignInForm = (props) => {
 
         const loginData = {
             username: username,
-            password: email,
+            password: password,
+            email: password,
         }
         console.log("Login data:", loginData)
 
@@ -69,13 +76,21 @@ const SignInForm = (props) => {
             </div>
 
             <form onSubmit={handleLogin}>
-                <label htmlFor="">Name</label>
+                <label htmlFor="">Namn</label>
                 <input 
                     type="text"
                     name="name"
                     className="inputfield"
                     placeholder="name"
                     onChange={(event) => setUsername(event.target.value)}
+                />
+                <label htmlFor="">Lösenord</label>
+                <input 
+                    type="text" //password
+                    name="password"
+                    className="inputfield"
+                    placeholder="I epost-format..."
+                    onChange={(event) => setPassword(event.target.value)}
                 />
                 <label htmlFor="">Epost</label>
                 <input 
@@ -103,8 +118,8 @@ const SignInForm = (props) => {
                 </div>
             </form>
             <div className="login-register-container">
-                <p>Create a new account?</p>
-                <button className="login-form-button" onClick={props.toggleSignIn}>Register</button>
+                <p>Vill du skapa ett nytt konto?</p>
+                <button className="login-form-button" onClick={props.toggleSignIn}>Registrera</button>
             </div>
         </div>
     )

@@ -3,6 +3,7 @@ import "./Products.scss"
 import buttonLogo from "../../images/products-images/addToCartLogo.svg"
 import useCartStore from "../../store/cartStore"
 import { render } from "react-dom"
+import { useState } from "react"
 
 export type ProductsProps = {
     id: string
@@ -18,6 +19,8 @@ export type ProductsProps = {
 
 const Products = (props: ProductsProps) => {
 
+    const [active, setActive] = useState(false)
+
     const { addToCart } = useCartStore()
 
     const addProductToCart = () => {
@@ -30,6 +33,15 @@ const Products = (props: ProductsProps) => {
         })
     }
 
+    //For the button active styling...
+    const onTouchDown = () => {
+        setActive(prevState => !prevState)
+    }
+    const onTouchUp = () => {
+        setActive(prevState => !prevState)
+    }
+
+
     const renderDots = () => {
         return "." .repeat(24)
     }
@@ -37,8 +49,13 @@ const Products = (props: ProductsProps) => {
 
     return (
         <div className="product">
-            <button className="product__add-to-cart-button" onClick={addProductToCart}>
-                <img src={buttonLogo} alt="button-logo" />
+            <button 
+                className={`product__add-to-cart-button ${active ? "active" : ""}`} 
+                onClick={addProductToCart} 
+                onTouchStart={onTouchDown}
+                onTouchEnd={onTouchUp}
+                >
+                    <img src={buttonLogo} alt="button-logo" />
             </button>
             <div className="product__name">
                 <div className="product__name__title-div">

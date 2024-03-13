@@ -11,6 +11,7 @@ type OrderButton = {
 export type OrderDetails = {
     title: string,
     price: number
+    quantity: number
 }
 
 
@@ -40,7 +41,8 @@ const tokenVerification = async () => {
 const OrderButton = (props: OrderButton) => {
     const navigate = useNavigate()
     const { cart, clearCart } = useCartStore() // hämta order från zustand state
-    const { orderNumber } = useOrderStore()
+    const { orderNumber,  } = useOrderStore()
+    const { setOrderNumberEta } = useOrderStore()
     console.log(cart)
 
     // const orderData = JSON.parse(sessionStorage.getItem("state")) //Hämta order från sessionStorage
@@ -67,13 +69,12 @@ const OrderButton = (props: OrderButton) => {
                     order: cart.map((item: OrderDetails) => {
                         return {
                             name: item.title,
-                            price: item.price,
-                        }
+                            price: item.price                        }
                     }),
                 },
             }
-            console.log(cart)
-            console.log(orderDetails)
+            console.log("Cart:", cart)
+            console.log("Order details:", orderDetails)
 
             const response = await fetch("https://airbean-api-xjlcn.ondigitalocean.app/api/beans/order/", {
                 method: "POST",
@@ -89,11 +90,13 @@ const OrderButton = (props: OrderButton) => {
                 const data = await response.json()
                 console.log(data)
 
-                useOrderStore.setState((state) => ({
-                    ...state,
-                    orderNumber: data.orderNr,
-                    eta: data.eta
-                }))
+                setOrderNumberEta(data)
+
+                // useOrderStore.setState((state) => ({
+                //     ...state,
+                //     orderNumber: data.orderNr,
+                //     eta: data.eta
+                // }))
 
             }
         } catch (error) {
