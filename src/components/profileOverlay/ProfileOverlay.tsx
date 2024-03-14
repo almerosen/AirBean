@@ -34,10 +34,10 @@ const ProfileOverlay = (props) => {
     const signUp = async () => {
 
         // Some basic validation...
-        if(!username || !email || !password) {
-            alert("Please fill in username and email")
-            return
-        }
+        // if(!username || !email || !password) {
+        //     alert("Please fill in all the fields")
+        //     return
+        // } Disabled the button instead...
         // validate email 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         if(!emailRegex.test(email)) {
@@ -128,7 +128,7 @@ const ProfileOverlay = (props) => {
                                 type="text"
                                 name="name"
                                 className="inputfield"
-                                placeholder="name"
+                                placeholder="namn"
                                 onChange={(event) => setUsername(event.target.value)}
                             />
                             <label htmlFor="">Lösenord</label>
@@ -136,7 +136,7 @@ const ProfileOverlay = (props) => {
                                 type="text" //password
                                 name="password"
                                 className="inputfield"
-                                placeholder="I epost-format..."
+                                placeholder="lösenord"
                                 onChange={(event) => setPassword(event.target.value)}
                             />
                             <label htmlFor="">Epost</label>
@@ -159,7 +159,8 @@ const ProfileOverlay = (props) => {
                             </div>
                 
                             <div className="overlay__button-container">
-                                <button className="overlay__button">Brew me a cup!
+                                <button className={`overlay__button ${!username || !password || !email ? "disabled": ""}`}>
+                                    Brew me a cup!
                                 </button>
                             </div>
                         </form>

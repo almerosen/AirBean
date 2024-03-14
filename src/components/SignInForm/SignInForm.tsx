@@ -81,7 +81,7 @@ const SignInForm = (props) => {
                     type="text"
                     name="name"
                     className="inputfield"
-                    placeholder="name"
+                    placeholder="namn"
                     onChange={(event) => setUsername(event.target.value)}
                 />
                 <label htmlFor="">Lösenord</label>
@@ -89,7 +89,7 @@ const SignInForm = (props) => {
                     type="text" //password
                     name="password"
                     className="inputfield"
-                    placeholder="I epost-format..."
+                    placeholder="lösenord"
                     onChange={(event) => setPassword(event.target.value)}
                 />
                 <label htmlFor="">Epost</label>
@@ -113,13 +113,20 @@ const SignInForm = (props) => {
                 </div>
                 
                 <div className="overlay__button-container">
-                    <button className="overlay__button">Brew me a cup!
+                    <button 
+                        className={`overlay__button ${ !username || !password ? "disabled" : "" }`}
+                    >
+                        Brew me a cup!
                     </button>
                 </div>
             </form>
             <div className="login-register-container">
                 <p>Vill du skapa ett nytt konto?</p>
-                <button className="login-form-button" onClick={props.toggleSignIn}>Registrera</button>
+                <button 
+                    className="login-form-button"
+                    onClick={props.toggleSignIn}
+                >Registrera
+                </button>
             </div>
         </div>
     )

@@ -48,7 +48,7 @@ const OrderStatus = () => {
                         throw new Error (`Failed fetch data with status ${response.status}`)
                     } else {
                         const data = await response.json()
-                        console.log(data)
+                        console.log("no ordernumber response", data)
                         setMessage(data.message)
                     }
                 } catch (error) {

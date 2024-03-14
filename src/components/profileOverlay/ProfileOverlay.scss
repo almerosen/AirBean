@@ -43,6 +43,10 @@
             &:hover {
                 cursor: pointer;
             }
+
+            &.disabled {
+                background-color: #80746d;
+            }
         }    
     
     }

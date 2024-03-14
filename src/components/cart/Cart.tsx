@@ -42,7 +42,7 @@ const Cart = () => {
 
                 <div className="cart__order-button">
                     <OrderButton 
-                        text="Take my money!"
+                        text={cart.length < 1 ? "Cart is empty" : "Take my money!"}
                     />
                 </div>        
                 

@@ -52,12 +52,13 @@ const OrderButton = (props: OrderButton) => {
     const sendOrder = async () => {
         try {
 
-            if(cart.length === 0 ) {
-                return
-            }
+            // if(cart.length === 0 ) {
+            //     return
+            // }
 
             const token = sessionStorage.getItem("token")
             if (!token) {
+                alert("Sign in or create a new account to place an order")
                 return
             }
             if (token) {
@@ -127,7 +128,13 @@ const OrderButton = (props: OrderButton) => {
 
 
     return (
-        <button className="order-button" onClick={sendOrder}>{props.text}</button>
+        <button 
+            className={`order-button ${cart.length === 0 ? "disabled" : ""}`}
+            onClick={sendOrder}
+            disabled={cart.length === 0}
+        >
+            {props.text}
+        </button>
     )
 }
 

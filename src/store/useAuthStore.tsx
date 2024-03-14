@@ -1,6 +1,14 @@
 import { create } from "zustand";
 
-const useAuthStore = create((set) => ({
+interface AuthStore {
+    isLoggedIn: boolean
+    username: string | null
+    email: string | null
+    login: (registerData: {username: string, email: string}) => void
+    logout: () => void
+}
+
+const useAuthStore = create<AuthStore>((set) => ({
     isLoggedIn: false,
     username: null,
     email: null,
@@ -9,11 +17,13 @@ const useAuthStore = create((set) => ({
         username: registerData.username,
         email: registerData.email
     }),
-    logout: () => set({
+    logout: () => {
+        sessionStorage.removeItem("token")
+        set({
         isLoggedIn: false,
         username: null,
         email: null
-    })
+    })}
     // setUser: (userData) => set({ user: userData }),
 }))
 
