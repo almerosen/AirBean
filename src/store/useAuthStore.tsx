@@ -19,6 +19,7 @@ const useAuthStore = create<AuthStore>((set) => ({
     }),
     logout: () => {
         sessionStorage.removeItem("token")
+        sessionStorage.removeItem("cart")
         set({
         isLoggedIn: false,
         username: null,

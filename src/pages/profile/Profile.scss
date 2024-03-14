@@ -58,6 +58,8 @@
         .orders-wrapper {
             display: flex;
             flex-direction: column;
+            max-height: 400px;
+            overflow-y: scroll;
 
             .orders {
                 width: 100%;

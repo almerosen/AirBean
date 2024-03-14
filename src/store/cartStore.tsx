@@ -1,10 +1,8 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { ProductsProps } from "../components/products/Products";
-import { CartItemProps } from "../components/cartItem/CartItem";
 
 export interface CartStore {
-    cart: ProductsProps[]
+    cart: CartItem[]
     addToCart: (product: CartItem) => void
     getTotalQuantity: () => number
     getTotalPrice: () => number
@@ -13,7 +11,7 @@ export interface CartStore {
     clearCart: () => void
 }
 
-type CartItem = {
+export type CartItem = {
     id: string
     title: string
     price: number
@@ -21,8 +19,8 @@ type CartItem = {
     quantity: number
 }
 
-const useCartStore = create( //funkar om jag tar bort CartStore...???
-    persist(
+const useCartStore = create( 
+    persist<CartStore>(
         (set, get) => ({
             cart: [],
             addToCart: (product: CartItem) => {

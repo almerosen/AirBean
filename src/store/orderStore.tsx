@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { OrderDetails } from "../components/OrderButton/OrderButton";
 
 type OrderStore = {
     orderNumber: string,

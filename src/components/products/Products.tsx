@@ -4,6 +4,7 @@ import buttonLogo from "../../images/products-images/addToCartLogo.svg"
 import useCartStore from "../../store/cartStore"
 import { render } from "react-dom"
 import { useState } from "react"
+import { CartItem } from "../../store/cartStore"
 
 export type ProductsProps = {
     id: string
@@ -24,12 +25,14 @@ const Products = (props: ProductsProps) => {
     const { addToCart } = useCartStore()
 
     const addProductToCart = () => {
-        addToCart({
+        const productToAdd: CartItem = {
             id: props.id,
             title: props.title,
             price: props.price,
-            // quantity: 0
-        })
+            totalPrice: props.price,
+            quantity: 0
+        }
+        addToCart(productToAdd)
     }
 
     //For the button active styling...

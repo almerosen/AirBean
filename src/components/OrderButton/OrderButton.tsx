@@ -3,6 +3,7 @@ import "./OrderButton.scss"
 import useCartStore from "../../store/cartStore"
 import useOrderStore from "../../store/orderStore"
 import { Navigate, useNavigate } from "react-router-dom"
+import useAuthStore from "../../store/useAuthStore"
 
 type OrderButton = {
     text: string
@@ -41,66 +42,96 @@ const tokenVerification = async () => {
 
 const OrderButton = (props: OrderButton) => {
     const navigate = useNavigate()
-    const { cart, clearCart } = useCartStore() // hämta order från zustand state
+    const { cart, clearCart } = useCartStore() 
     const { orderNumber,  } = useOrderStore()
     const { setOrderNumberEta } = useOrderStore()
+    const { isLoggedIn } = useAuthStore()
     console.log(cart)
 
-    // const orderData = JSON.parse(sessionStorage.getItem("state")) //Hämta order från sessionStorage
 
     
-
     const sendOrder = async () => {
         try {
 
-            // if(cart.length === 0 ) {
+            // if(cart.length === 0 ) { Disabled the button instead...
             //     return
             // }
+            if(isLoggedIn) {
+                const token = sessionStorage.getItem("token")
+                if (!token) {
+                    alert("Sign in or create a new account to place an order")
+                    return
+                }
+                if (token) {
+                    await tokenVerification()
+                }
 
-            const token = sessionStorage.getItem("token")
-            if (!token) {
-                alert("Sign in or create a new account to place an order")
-                return
-            }
-            if (token) {
-                await tokenVerification()
-            }
+                const orderDetails = {
+                    details: {
+                        order: cart.map((item: OrderDetails) => ({
+                            name: item.title,
+                            price: item.price, // (item.price * item.quantity) gives error...
+                            quantity: item.quantity,
+                            totalPrice: (item.price * item.quantity)
+                        })),
+                    },
+                }
+                console.log("Cart:", cart)
+                console.log("Order details:", orderDetails)
 
-            const orderDetails = {
-                details: {
-                    order: cart.map((item: OrderDetails) => ({
-                        name: item.title,
-                        price: item.price, // (item.price * item.quantity) gives error...
-                        quantity: item.quantity
-                    })),
-                },
-            }
-            console.log("Cart:", cart)
-            console.log("Order details:", orderDetails)
+                const response = await fetch("https://airbean-api-xjlcn.ondigitalocean.app/api/beans/order/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(orderDetails)
+                })
+                if (!response.ok) {
+                    throw new Error (`Failed fetch data with status ${response.status}`)
+                } else {
+                    const data = await response.json()
+                    console.log(data)
 
-            const response = await fetch("https://airbean-api-xjlcn.ondigitalocean.app/api/beans/order/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify(orderDetails)
-            })
-            if (!response.ok) {
-                throw new Error (`Failed fetch data with status ${response.status}`)
+                    setOrderNumberEta(data)
+
+                    // useOrderStore.setState((state) => ({
+                    //     ...state,
+                    //     orderNumber: data.orderNr,
+                    //     eta: data.eta
+                    // }))
+
+                }
+
+
+            // When not signed in...
             } else {
-                const data = await response.json()
-                console.log(data)
-
-                setOrderNumberEta(data)
-
-                // useOrderStore.setState((state) => ({
-                //     ...state,
-                //     orderNumber: data.orderNr,
-                //     eta: data.eta
-                // }))
-
+                const orderDetails = {
+                    details: {
+                        order: cart.map((item: OrderDetails) => ({
+                            name: item.title,
+                            price: item.price, // (item.price * item.quantity) gives error...
+                            quantity: item.quantity,
+                            totalPrice: (item.price * item.quantity)
+                        })),
+                    },
+                }
+                const response = await fetch("https://airbean-api-xjlcn.ondigitalocean.app/api/beans/order/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(orderDetails)
+                })
+                if (!response.ok) {
+                    throw new Error (`Failed fetch data - status ${response.status}`)
+                } else {
+                    const data = await response.json()
+                    setOrderNumberEta(data)
+                }
             }
+            
+
         } catch (error) {
             console.error(error)
         }

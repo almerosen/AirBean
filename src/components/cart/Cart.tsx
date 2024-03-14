@@ -1,8 +1,10 @@
 import useCartStore, { CartStore } from "../../store/cartStore"
-import CartItem, { CartItemProps } from "../cartItem/CartItem"
+import { CartItemProps } from "../cartItem/CartItemComponent"
 import "./Cart.scss"
 import polygon from "../../images/cart-images/caret-up-fill.svg"
 import OrderButton from "../OrderButton/OrderButton"
+import { CartItem } from "../../store/cartStore"
+import CartItemComponent from "../cartItem/CartItemComponent"
 
 const Cart = () => {
     const { cart, increaseQuantity , decreaseQuantity, getTotalPrice } = useCartStore()
@@ -22,8 +24,8 @@ const Cart = () => {
                 <img src={polygon} alt="" className="polygon"/>
                 <h1>Din beställning</h1>
                 <div className="cart__products">
-                    {cart.map((product: CartItemProps) => (
-                        <CartItem 
+                    {cart.map((product: CartItem) => (
+                        <CartItemComponent
                             key={product.id}
                             id={product.id}
                             title={product.title}
