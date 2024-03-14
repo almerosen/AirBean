@@ -143,20 +143,6 @@ const OrderButton = (props: OrderButton) => {
 
     console.log(orderNumber)
 
-    // const fetchMessage = async (orderNumber) => {
-    //     try {
-    //         const response = await fetch(`https://airbean-api-xjlcn.ondigitalocean.app/api/beans/order/status/${orderNumber}`)
-    //         if (!response.ok) {
-    //             throw new Error (`Failed fetch data with status ${response.status}`)
-    //         } else {
-    //             const message = await response.json()
-    //             console.log(message)
-    //         }
-    //     } catch (error) {
-    //         console.error(error)
-    //     }
-    // }
-
 
 
     return (

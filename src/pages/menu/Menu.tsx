@@ -12,8 +12,6 @@ const Menu = () => {
 
     // const {addToCart} = useCartStore()
     
- 
-
     useEffect(() => {
         const fetchData = async () => {
             try {

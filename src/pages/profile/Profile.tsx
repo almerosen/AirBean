@@ -17,16 +17,7 @@ interface OrderData {
 
 
 const Profile = () => {
-    const [overlay, setOverlay] = useState(true)
     const { isLoggedIn, username, email, logout } = useAuthStore()
-
-    
-    const toggleOverlay = () => {
-        setOverlay(prevState => !prevState)
-    }
-
-    
-    // const { orderNumber } = useOrderStore()
     const [orderHistory, setOrderHistory] = useState<OrderData[]>([])
     const [ordersMessage, setOrdersMessage] = useState("")
 

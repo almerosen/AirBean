@@ -16,8 +16,6 @@ export type ProductsProps = {
 }
 
 
-
-
 const Products = (props: ProductsProps) => {
 
     const [active, setActive] = useState(false)
