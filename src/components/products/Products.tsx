@@ -27,9 +27,8 @@ const Products = (props: ProductsProps) => {
         addToCart({
             id: props.id,
             title: props.title,
-            // desc: props.desc,
             price: props.price,
-            quantity: 0
+            // quantity: 0
         })
     }
 

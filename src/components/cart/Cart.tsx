@@ -28,6 +28,7 @@ const Cart = () => {
                             id={product.id}
                             title={product.title}
                             price={product.price}
+                            totalPrice={product.totalPrice}
                             quantity={product.quantity}
                             increaseQuantity={increaseQuantity}
                             decreaseQuantity={decreaseQuantity}

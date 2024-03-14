@@ -6,12 +6,13 @@ export type CartItemProps = {
     id: string
     title: string
     price: number
+    totalPrice: number
     quantity: number
     increaseQuantity: (id: string) => void
     decreaseQuantity: (id: string) => void
 }
 
-const CartItem = ({id, title, price, quantity, increaseQuantity, decreaseQuantity}: CartItemProps) => {
+const CartItem = ({id, title, price, totalPrice, quantity, increaseQuantity, decreaseQuantity}: CartItemProps) => {
 
     
     const handleDecreaseQuantity = () => {
@@ -33,7 +34,7 @@ const CartItem = ({id, title, price, quantity, increaseQuantity, decreaseQuantit
                     <p>{renderDots()}</p>
                     <h2>{title}</h2>
                 </div>
-                <p>{price} kr</p>
+                <p>{totalPrice} kr</p>
             </div>
             <div className="cartItem__quantity">
                 <button className="increase-button" onClick={handleIncreaseQuantity}>

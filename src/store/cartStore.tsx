@@ -1,10 +1,11 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { ProductsProps } from "../components/products/Products";
+import { CartItemProps } from "../components/cartItem/CartItem";
 
 export interface CartStore {
     cart: ProductsProps[]
-    addToCart: (product: ProductsProps) => void
+    addToCart: (product: CartItem) => void
     getTotalQuantity: () => number
     getTotalPrice: () => number
     increaseQuantity: (id: string) => void
@@ -16,6 +17,7 @@ type CartItem = {
     id: string
     title: string
     price: number
+    totalPrice: number
     quantity: number
 }
 
@@ -28,10 +30,11 @@ const useCartStore = create( //funkar om jag tar bort CartStore...???
                 if (existingProduct) {
                     if(existingProduct.quantity > 0) {
                         existingProduct.quantity++
+                        existingProduct.totalPrice = existingProduct.price * existingProduct.quantity
                     }
                     set({ cart: [...get().cart] })
                 } else {
-                    set({ cart: [...get().cart, { ...product, quantity: 1}] })
+                    set({ cart: [...get().cart, { ...product, quantity: 1, totalPrice: product.price}] })
                 }
             },
 
@@ -46,10 +49,11 @@ const useCartStore = create( //funkar om jag tar bort CartStore...???
             increaseQuantity: (id: string) => {
                 set((state) => ({
                     cart: state.cart.map((item: CartItem) => 
-                        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+                        item.id === id ? { ...item, quantity: item.quantity + 1, totalPrice: item.price * (item.quantity + 1) } : item
                     )
                 }))      
             },
+            
 
             decreaseQuantity: (id: string) => {
                 set((state) => {
@@ -58,7 +62,7 @@ const useCartStore = create( //funkar om jag tar bort CartStore...???
                         if (existingItem.quantity === 1) {
                             return { cart: state.cart.filter((item) => item.id !== id) }
                         } else {
-                            const updatedCart = state.cart.map((item) => item.id === id ? { ...item, quantity: item.quantity - 1 } : item)
+                            const updatedCart = state.cart.map((item) => item.id === id ? { ...item, quantity: item.quantity - 1, totalPrice: item.price * (item.quantity - 1) } : item)
                             return { cart: updatedCart }
                         }
                     }

@@ -85,7 +85,7 @@ const Profile = () => {
                 </button>
             </div>
            
-            <div className="profile__order-history">
+            {isLoggedIn && <div className="profile__order-history">
                 <h2>Orderhistorik</h2>
                 <div className="orders-wrapper">
                     {orderHistory.length > 0 && orderHistory.map((orderItem, index) => (   
@@ -108,7 +108,7 @@ const Profile = () => {
                         <p>{ordersMessage}</p>
                     )}           
                 </div>
-            </div>
+            </div>}
         </div>
     )
 }

@@ -9,8 +9,9 @@ type OrderButton = {
 }
 
 export type OrderDetails = {
-    title: string,
+    title: string
     price: number
+    totalPrice: number
     quantity: number
 }
 
@@ -67,11 +68,11 @@ const OrderButton = (props: OrderButton) => {
 
             const orderDetails = {
                 details: {
-                    order: cart.map((item: OrderDetails) => {
-                        return {
-                            name: item.title,
-                            price: item.price                        }
-                    }),
+                    order: cart.map((item: OrderDetails) => ({
+                        name: item.title,
+                        price: item.price, // (item.price * item.quantity) gives error...
+                        quantity: item.quantity
+                    })),
                 },
             }
             console.log("Cart:", cart)

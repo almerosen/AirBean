@@ -14,7 +14,7 @@ const OrderStatus = () => {
     
     useEffect(() => {
         if (orderNumber) {
-            const fetchEtaAndMessage = async (orderNumber) => {
+            const fetchEtaAndMessage = async (orderNumber: string) => {
 
                 const token = sessionStorage.getItem("token")
                 if (!token) {
