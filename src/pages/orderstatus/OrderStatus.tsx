@@ -32,7 +32,7 @@ const OrderStatus = () => {
                         throw new Error (`Failed fetch data with status ${response.status}`)
                     } else {
                         const data = await response.json()
-                        console.log(data)
+                        console.log("Order status response:", data)
                         setNewEta(data.eta)
                     }
                 } catch (error) {

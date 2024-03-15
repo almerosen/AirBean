@@ -76,24 +76,27 @@ const SignInForm = (props) => {
             </div>
 
             <form onSubmit={handleLogin}>
-                <label htmlFor="">Namn</label>
+                <label htmlFor="username">Namn</label>
                 <input 
+                    id="username"
                     type="text"
                     name="name"
                     className="inputfield"
                     placeholder="namn"
                     onChange={(event) => setUsername(event.target.value)}
                 />
-                <label htmlFor="">Lösenord</label>
+                <label htmlFor="password">Lösenord</label>
                 <input 
+                    id="password"
                     type="text" //password
                     name="password"
                     className="inputfield"
                     placeholder="lösenord"
                     onChange={(event) => setPassword(event.target.value)}
                 />
-                <label htmlFor="">Epost</label>
+                <label htmlFor="email">Epost</label>
                 <input 
+                    id="email"
                     type="text"
                     name="epost"
                     className="inputfield"
@@ -115,6 +118,7 @@ const SignInForm = (props) => {
                 <div className="overlay__button-container">
                     <button 
                         className={`overlay__button ${ !username || !password ? "disabled" : "" }`}
+                        disabled={!username || !password}
                     >
                         Brew me a cup!
                     </button>

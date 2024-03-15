@@ -5,14 +5,14 @@ import polygon from "../../images/cart-images/caret-up-fill.svg"
 import OrderButton from "../OrderButton/OrderButton"
 import { CartItem } from "../../store/cartStore"
 import CartItemComponent from "../cartItem/CartItemComponent"
+import { useEffect } from "react"
 
 const Cart = () => {
     const { cart, increaseQuantity , decreaseQuantity, getTotalPrice } = useCartStore()
-    console.log(cart)
-
-    // const [total, setTotal] = useState(0)
-    // const totalSum = cart.map((item) => )
-
+    
+    useEffect(() => {
+        console.log(cart)
+    })
 
     return (
         <div className="cart">

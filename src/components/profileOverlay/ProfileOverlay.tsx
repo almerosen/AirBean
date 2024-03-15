@@ -159,7 +159,10 @@ const ProfileOverlay = (props) => {
                             </div>
                 
                             <div className="overlay__button-container">
-                                <button className={`overlay__button ${!username || !password || !email ? "disabled": ""}`}>
+                                <button 
+                                    className={`overlay__button ${!username || !password || !email ? "disabled": ""}`}
+                                    disabled={!username || !password || !email}
+                                >
                                     Brew me a cup!
                                 </button>
                             </div>

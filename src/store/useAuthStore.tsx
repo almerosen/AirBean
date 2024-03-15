@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import useCartStore from "./cartStore";
 
 interface AuthStore {
     isLoggedIn: boolean
@@ -19,12 +20,15 @@ const useAuthStore = create<AuthStore>((set) => ({
     }),
     logout: () => {
         sessionStorage.removeItem("token")
-        sessionStorage.removeItem("cart")
         set({
-        isLoggedIn: false,
-        username: null,
-        email: null
-    })}
+            isLoggedIn: false,
+            username: null,
+            email: null
+        })
+
+        useCartStore.getState().clearCart(); //Clear the cart upon logout just to be ably to login/create different user accounts without getting someone else's cart
+
+    }
     // setUser: (userData) => set({ user: userData }),
 }))
 

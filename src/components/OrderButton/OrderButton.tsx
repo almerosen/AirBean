@@ -46,7 +46,6 @@ const OrderButton = (props: OrderButton) => {
     const { orderNumber,  } = useOrderStore()
     const { setOrderNumberEta } = useOrderStore()
     const { isLoggedIn } = useAuthStore()
-    console.log(cart)
 
 
     
@@ -91,7 +90,7 @@ const OrderButton = (props: OrderButton) => {
                     throw new Error (`Failed fetch data with status ${response.status}`)
                 } else {
                     const data = await response.json()
-                    console.log(data)
+                    console.log("data response:", data)
 
                     setOrderNumberEta(data)
 
@@ -140,8 +139,6 @@ const OrderButton = (props: OrderButton) => {
 
         navigate("/orderstatus")
     }
-
-    console.log(orderNumber)
 
 
 
